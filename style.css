@@ -1,0 +1,228 @@
+/* ── Reset & Base ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #f0f2f5;
+  --card:        #ffffff;
+  --primary:     #4f46e5;
+  --primary-h:   #4338ca;
+  --danger:      #dc2626;
+  --success:     #16a34a;
+  --border:      #d1d5db;
+  --border-focus:#4f46e5;
+  --border-err:  #dc2626;
+  --border-ok:   #16a34a;
+  --text:        #111827;
+  --muted:       #6b7280;
+  --radius:      8px;
+  --transition:  0.18s ease;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+/* ── Layout ──────────────────────────────────────────── */
+.page-wrapper {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+form {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 16px rgba(0,0,0,.08);
+  padding: 2.5rem 2.5rem 2rem;
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: -.5px;
+}
+
+/* ── Sections ────────────────────────────────────────── */
+.form-section {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.form-section h2 {
+  font-size: .8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+/* ── Field ───────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  margin-bottom: 1.1rem;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 80px 100px;
+  gap: 1rem;
+}
+
+label {
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+input,
+select {
+  height: 42px;
+  padding: 0 .75rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: .95rem;
+  font-family: inherit;
+  color: var(--text);
+  background: #fff;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  width: 100%;
+}
+
+input::placeholder { color: #9ca3af; }
+
+input:focus,
+select:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(79,70,229,.15);
+}
+
+/* valid */
+.field.valid input,
+.field.valid select {
+  border-color: var(--border-ok);
+}
+.field.valid input:focus,
+.field.valid select:focus {
+  box-shadow: 0 0 0 3px rgba(22,163,74,.15);
+}
+
+/* error */
+.field.error input,
+.field.error select {
+  border-color: var(--border-err);
+}
+.field.error input:focus,
+.field.error select:focus {
+  box-shadow: 0 0 0 3px rgba(220,38,38,.15);
+}
+
+/* ── Error message ───────────────────────────────────── */
+.error {
+  font-size: .8rem;
+  color: var(--danger);
+  min-height: 1.1em;
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+}
+
+.error:not(:empty)::before {
+  content: '!';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  background: var(--danger);
+  color: #fff;
+  border-radius: 50%;
+  font-size: .65rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ── Submit button ───────────────────────────────────── */
+#submit-btn {
+  display: block;
+  width: 100%;
+  height: 48px;
+  margin-top: 1rem;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--transition), opacity var(--transition),
+              transform .1s ease;
+}
+
+#submit-btn:not(:disabled):hover  { background: var(--primary-h); }
+#submit-btn:not(:disabled):active { transform: scale(.98); }
+
+#submit-btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+/* ── Success overlay ─────────────────────────────────── */
+#success {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn .25s ease;
+}
+
+#success.hidden { display: none; }
+
+.success-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  max-width: 360px;
+  width: 90%;
+  box-shadow: 0 8px 40px rgba(0,0,0,.2);
+  animation: slideUp .3s ease;
+}
+
+.checkmark {
+  width: 64px;
+  height: 64px;
+  background: var(--success);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+.success-card h2 { font-size: 1.5rem; margin-bottom: .5rem; }
+.success-card p  { color: var(--muted); font-size: .95rem; }
+
+/* ── Animations ──────────────────────────────────────── */
+@keyframes fadeIn  { from { opacity: 0 } to { opacity: 1 } }
+@keyframes slideUp { from { transform: translateY(24px); opacity: 0 }
+                     to   { transform: translateY(0);    opacity: 1 } }
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 520px) {
+  form { padding: 1.5rem 1.25rem; }
+  .field-row { grid-template-columns: 1fr 1fr; }
+  .field-row .field:first-child { grid-column: 1 / -1; }
+}
